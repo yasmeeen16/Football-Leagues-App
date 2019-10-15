@@ -2,7 +2,7 @@
 //  LeaguesCoreDataModel+CoreDataClass.swift
 //  
 //
-//  Created by yasmeen on 10/14/19.
+//  Created by yasmeen on 10/15/19.
 //
 //
 
