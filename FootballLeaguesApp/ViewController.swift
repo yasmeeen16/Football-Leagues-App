@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import RxSwift
 import RxCocoa
-
+import SVProgressHUD
 class ViewController: UIViewController {
 
     @IBOutlet weak var LeaguesTable: UITableView!
@@ -32,6 +32,7 @@ class ViewController: UIViewController {
                         {
                            print("conn")
                            self.connected = true
+                            SVProgressHUD.show()
                             API.GetData(){(error : Error?, success : Bool? , data:[LeaguesModel]?) in
                                 if success! {
                                     print("success")
@@ -46,10 +47,11 @@ class ViewController: UIViewController {
                                         
                                             
                                         }
+                                        SVProgressHUD.dismiss()
                                         
                                         }.addDisposableTo(self.disposeBag)
                                     
-                                    //self.LeaguesTable.reloadData()
+                                    self.LeaguesTable.reloadData()
                                 }else{
                                     print("failed")
                                 }
@@ -57,6 +59,7 @@ class ViewController: UIViewController {
                         }else{
                             print("disconn")
                             self.connected = false
+                            SVProgressHUD.show()
                             let fetchRequest : NSFetchRequest<LeaguesCoreDataModel> = LeaguesCoreDataModel.fetchRequest()
                             do{
                                 let cordataItems = try PersistenceService.context.fetch(fetchRequest)
@@ -72,6 +75,7 @@ class ViewController: UIViewController {
                                             cellToUse.endDate.text = CoreDataleaguesModel.end
                                         
                                     }
+                                    SVProgressHUD.dismiss()
                                     
                                     }.addDisposableTo(self.disposeBag)
                                 

@@ -10,4 +10,5 @@ target 'FootballLeaguesApp' do
  pod 'RxCocoa'
  pod 'Alamofire'
  pod 'SwiftyJSON'
+ pod 'SVProgressHUD'
 end
