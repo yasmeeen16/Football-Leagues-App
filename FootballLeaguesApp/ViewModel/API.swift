@@ -33,7 +33,7 @@ class API: NSObject {
                   
                     var LeaguesModelArray = [LeaguesModel]()
                     //var CoreDataLeaguesModelArray = [LeaguesCoreDataModel]()
-                    
+                    API.DeleteAllDataFromCoreData()
                    
                     
                     for comp in competitions{
@@ -75,7 +75,20 @@ class API: NSObject {
                 }
         }
     }
-
+    static func DeleteAllDataFromCoreData() {
+        let fetchRequest: NSFetchRequest<LeaguesCoreDataModel> = LeaguesCoreDataModel.fetchRequest()
+        
+        
+        do {
+            let objects = try PersistenceService.context.fetch(fetchRequest)
+            for object in objects {
+                PersistenceService.context.delete(object)
+            }
+            try PersistenceService.context.save()
+        } catch _ {
+            // error handling
+        }
+    }
     
 }
 
